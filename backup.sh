@@ -37,7 +37,7 @@ TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 BACKUP_FILE="${BACKUP_DIR}/${TIMESTAMP}.sql"
 
 # Create the backup directory if it doesn't exist
-mkdir -p "/${BACKUP_DIR}"
+mkdir -p "${BACKUP_DIR}"
 
 # Save the database
 echo "Saving database ${DB_NAME}..."

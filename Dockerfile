@@ -14,6 +14,3 @@ RUN chmod +x /usr/local/bin/backup.sh && \
 USER backupuser
 
 ENTRYPOINT ["bash", "/usr/local/bin/backup.sh"]
-
-# docker build -t registry.gitlab.com/plannify-group/plannify-backup:1.1.5 .
-# docker push registry.gitlab.com/plannify-group/plannify-backup:1.1.5

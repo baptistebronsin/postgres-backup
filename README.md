@@ -17,7 +17,51 @@ This script requires several environment variables to work properly:
 | BACKUP_MAX_BEFORE_DELETE | The maximum number of backup before deleting the oldest one | no | 7 |
 | BACKUP_COMPRESSION | The compression method to use for the backup file (no compression by default) | no | gzip, bzip2, xz |
 | --- | --- | --- |
-| S3_ENDPOINT | The bucket endpoint | yes | https://<account_id>.r2.cloudflarestorage.com |
+| S3_ENDPOINT | The bucket endpoint | yes | https://... |
 | S3_ACCESS_TOKEN | The access token of your provider account | yes | 1234567890 |
 | S3_SECRET_ACCESS_TOKEN | The secret access token of your provider account | yes | 1234567890 |
 | S3_BUCKET | The S3 bucket of your account | yes | plannify |
+
+## Usage
+
+This script is designed to be run in a Docker container. You can use it in a kubernetes CronJob or in a Docker container directly.
+
+## Examples
+
+This section provides config examples of how to use the script with different cloud providers.
+
+### Cloudflare R2
+
+```yaml
+S3_ENDPOINT: https://<account_id>.r2.cloudflarestorage.com
+S3_ACCESS_TOKEN: 1234567890
+S3_SECRET_ACCESS_TOKEN: 1234567890
+S3_BUCKET: plannify
+```
+
+### AWS S3
+
+```yaml
+S3_ENDPOINT: https://s3.amazonaws.com
+S3_ACCESS_TOKEN: 1234567890
+S3_SECRET_ACCESS_TOKEN: 1234567890
+S3_BUCKET: plannify
+```
+
+### GCP Cloud Storage
+
+```yaml
+S3_ENDPOINT: https://storage.googleapis.com
+S3_ACCESS_TOKEN: 1234567890
+S3_SECRET_ACCESS_TOKEN: 1234567890
+S3_BUCKET: plannify
+```
+
+### Azure Blob Storage
+
+```yaml
+S3_ENDPOINT: https://<account_name>.blob.core.windows.net
+S3_ACCESS_TOKEN: 1234567890
+S3_SECRET_ACCESS_TOKEN: 1234567890
+S3_BUCKET: plannify
+```

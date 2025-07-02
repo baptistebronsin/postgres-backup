@@ -15,7 +15,7 @@ This script requires several environment variables to work properly:
 | --- | --- | --- |
 | BACKUP_DIR | The directory of the backup | no | 'daily', 'weekly', 'monthly' |
 | BACKUP_MAX_BEFORE_DELETE | The maximum number of backup before deleting the oldest one | no | 7 |
-| BACKUP_COMPRESSION | The compression method to use for the backup file (no compression by default) | no | gzip, bzip2, xz |
+| BACKUP_COMPRESSION | The compression method to use for the backup file (no compression by default) | no | gzip, xz |
 | --- | --- | --- |
 | S3_ENDPOINT | The bucket endpoint | yes | https://... |
 | S3_ACCESS_TOKEN | The access token of your provider account | yes | 1234567890 |

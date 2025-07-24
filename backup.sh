@@ -44,7 +44,7 @@ echo "Folder '${ABSOLUTE_BACKUP_FILE}' created."
 
 # Save the database
 echo "Saving database ${DB_NAME}..."
-pg_dump_output=$(PGPASSWORD=${DB_PASSWORD} pg_dump -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER} -d ${DB_NAME} -F p -c -v -f ${ABSOLUTE_BACKUP_FILE} 2>&1)
+pg_dump_output=$(PGPASSWORD=${DB_PASSWORD} pg_dump -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER} -d ${DB_NAME} -F p -c -v --column-inserts -f ${ABSOLUTE_BACKUP_FILE} 2>&1)
 
 if [ $? -ne 0 ]; then
   echo "Error: Failed to save the database. Details:"

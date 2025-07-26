@@ -68,7 +68,7 @@ fi
 
 # Create the backup directory if it doesn't exist
 mkdir -p "${ABSOLUTE_BACKUP_DIR}"
-echo "Folder '${ABSOLUTE_BACKUP_FILE}' created."
+echo "Folder '${ABSOLUTE_BACKUP_DIR}' created."
 
 # Save the database
 echo "Saving database ${DB_NAME}..."
@@ -80,7 +80,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Successful backup in '${S3_BACKUP_FILE}'."
+echo "Successful backup in '${ABSOLUTE_BACKUP_FILE}'."
 
 if [ -n "${BACKUP_COMPRESSION}" ]; then
   case "${BACKUP_COMPRESSION}" in
@@ -153,7 +153,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Upload to S3 successful"
+echo "Upload to S3 successful."
 
 if [ -z "${BACKUP_MAX_BEFORE_DELETE}" ]; then
   echo "No limit on the number of backups to keep"

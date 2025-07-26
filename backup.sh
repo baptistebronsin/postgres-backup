@@ -57,12 +57,13 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 # Create the container backup directory
 ABSOLUTE_BACKUP_DIR="/home/backupuser/${BACKUP_DIR}"
-ABSOLUTE_BACKUP_FILE="${ABSOLUTE_BACKUP_DIR}/${TIMESTAMP}.sql"
 
 if [ -z "${BACKUP_DIR}" ]; then
     S3_BACKUP_FILE="${TIMESTAMP}.sql"
+    ABSOLUTE_BACKUP_FILE="/home/backupuser/${S3_BACKUP_FILE}"
 else
     S3_BACKUP_FILE="${BACKUP_DIR}/${TIMESTAMP}.sql"
+    ABSOLUTE_BACKUP_FILE="${ABSOLUTE_BACKUP_DIR}/${TIMESTAMP}.sql"
 fi
 
 # Create the backup directory if it doesn't exist
@@ -183,5 +184,8 @@ else
   echo "Old backups have been sorted."
 fi
 
-echo "Deleting local backup file '${ABSOLUTE_BACKUP_FILE}'..."
-rm -f "${ABSOLUTE_BACKUP_FILE}"
+echo "Deleting local backup in folder '/home/backupuser'..."
+rm -rf /home/backupuser/*
+
+echo "Backup process completed successfully."
+exit 0

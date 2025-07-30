@@ -7,6 +7,8 @@ This script requires several environment variables to work properly:
 
 | Variable | Description | Required | Example |
 | --- | --- | --- | --- |
+| TZ | Personalize timezone | no | Europe/Paris |
+| --- | --- | --- | --- |
 | DB_HOST | The host of the database | yes | postgres |
 | DB_PORT | The port of the database | yes | 5432 |
 | DB_USER | The user of the database | yes | postgres |

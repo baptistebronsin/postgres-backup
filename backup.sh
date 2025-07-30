@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Environment variables
 DB_HOST=${DB_HOST}
 DB_PORT=${DB_PORT:-5432}
 DB_USER=${DB_USER}
@@ -20,6 +19,11 @@ S3_BUCKET=${S3_BUCKET}
 if [ -z "${DB_HOST}" ] || [ -z "${DB_USER}" ] || [ -z "${DB_PASSWORD}" ] || [ -z "${DB_NAME}" ] || [ -z "${S3_ENDPOINT}" ] || [ -z "${S3_ACCESS_TOKEN}" ] || [ -z "${S3_SECRET_ACCESS_TOKEN}" ] || [ -z "${S3_BUCKET}" ]; then
   echo "Error: Missing environment variables."
   exit 1
+fi
+
+# Use personalized timezone
+if [ -n "${TZ}" ]; then
+  export TZ="${TZ}"
 fi
 
 # Validate BACKUP_DIR

@@ -23,6 +23,8 @@ This script requires several environment variables to work properly:
 | S3_ACCESS_TOKEN | The access token of your provider account | yes | 1234567890 |
 | S3_SECRET_ACCESS_TOKEN | The secret access token of your provider account | yes | 1234567890 |
 | S3_BUCKET | The S3 bucket of your account | yes | plannify |
+| --- | --- | --- |
+| STATUS_ENDPOINT | The endpoint to send backup status | no | https://my-uptime-kuma.com/backup-status |
 
 ## Usage
 

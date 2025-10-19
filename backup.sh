@@ -15,6 +15,8 @@ S3_ACCESS_TOKEN=${S3_ACCESS_TOKEN}
 S3_SECRET_ACCESS_TOKEN=${S3_SECRET_ACCESS_TOKEN}
 S3_BUCKET=${S3_BUCKET}
 
+STATUS_ENDPOINT=${STATUS_ENDPOINT}
+
 # Validate environment variables
 if [ -z "${DB_HOST}" ] || [ -z "${DB_USER}" ] || [ -z "${DB_PASSWORD}" ] || [ -z "${DB_NAME}" ] || [ -z "${S3_ENDPOINT}" ] || [ -z "${S3_ACCESS_TOKEN}" ] || [ -z "${S3_SECRET_ACCESS_TOKEN}" ] || [ -z "${S3_BUCKET}" ]; then
   echo "Error: Missing environment variables."
@@ -190,6 +192,18 @@ fi
 
 echo "Deleting local backup in folder '/home/backupuser'..."
 rm -rf /home/backupuser/*
+
+if [ -z "${STATUS_ENDPOINT}" ]; then
+  echo "No STATUS_ENDPOINT provided, skipping status notification."
+else
+  echo "Sending status notification to ${STATUS_ENDPOINT}..."
+  curl "${STATUS_ENDPOINT}"
+  if [ $? -ne 0 ]; then
+    echo "Warning: Failed to send status notification to ${STATUS_ENDPOINT}."
+  else
+    echo "Status notification sent successfully."
+  fi
+fi
 
 echo "Backup process completed successfully."
 exit 0

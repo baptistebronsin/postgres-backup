@@ -9,6 +9,7 @@ DB_NAME=${DB_NAME}
 BACKUP_DIR=${BACKUP_DIR}
 BACKUP_MAX_BEFORE_DELETE=${BACKUP_MAX_BEFORE_DELETE}
 BACKUP_COMPRESSION=${BACKUP_COMPRESSION}
+BACKUP_AGE_RECIPIENT=${BACKUP_AGE_RECIPIENT}
 
 S3_ENDPOINT=${S3_ENDPOINT}
 S3_ACCESS_TOKEN=${S3_ACCESS_TOKEN}
@@ -19,7 +20,7 @@ STATUS_ENDPOINT=${STATUS_ENDPOINT}
 
 # Validate environment variables
 if [ -z "${DB_HOST}" ] || [ -z "${DB_USER}" ] || [ -z "${DB_PASSWORD}" ] || [ -z "${DB_NAME}" ] || [ -z "${S3_ENDPOINT}" ] || [ -z "${S3_ACCESS_TOKEN}" ] || [ -z "${S3_SECRET_ACCESS_TOKEN}" ] || [ -z "${S3_BUCKET}" ]; then
-  echo "Error: Missing environment variables."
+  echo "Error: Missing at least one required environment variable : DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, S3_ENDPOINT, S3_ACCESS_TOKEN, S3_SECRET_ACCESS_TOKEN, S3_BUCKET."
   exit 1
 fi
 
@@ -141,6 +142,24 @@ if [ -n "${BACKUP_COMPRESSION}" ]; then
   esac
 else
   echo "No compression applied to the backup file."
+fi
+
+# Encrypt backup if recipient public key is provided
+if [ -n "${BACKUP_AGE_RECIPIENT}" ]; then
+  echo "Encrypting backup..."
+  encrypt_output=$(age -r "${BACKUP_AGE_RECIPIENT}" -o "${ABSOLUTE_BACKUP_FILE}.age" "${ABSOLUTE_BACKUP_FILE}" 2>&1)
+
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to encrypt the backup. Details:"
+    echo "${encrypt_output}"
+    rm -f "${ABSOLUTE_BACKUP_FILE}"
+    exit 1
+  fi
+
+  rm -f "${ABSOLUTE_BACKUP_FILE}"
+  ABSOLUTE_BACKUP_FILE="${ABSOLUTE_BACKUP_FILE}.age"
+  S3_BACKUP_FILE="${S3_BACKUP_FILE}.age"
+  echo "Backup encrypted successfully."
 fi
 
 # Upload to S3

@@ -1,6 +1,6 @@
 FROM postgres:18.4-alpine
 
-RUN apk add --no-cache s3cmd curl ca-certificates
+RUN apk add --no-cache s3cmd curl ca-certificates xz zip
 
 RUN curl -fsSL https://github.com/FiloSottile/age/releases/download/v1.3.1/age-v1.3.1-linux-amd64.tar.gz \
     | tar -xz --strip-components=1 -C /usr/local/bin age/age age/age-keygen

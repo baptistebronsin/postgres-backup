@@ -1,4 +1,4 @@
-FROM postgres:16.13-alpine3.23
+FROM postgres:18.4-alpine
 
 RUN apk add --no-cache s3cmd curl ca-certificates
 
